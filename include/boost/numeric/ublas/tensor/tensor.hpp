@@ -28,7 +28,7 @@
 #include <boost/numeric/ublas/tensor/index.hpp>
 #include <boost/numeric/ublas/tensor/type_traits.hpp>
 
-namespace boost { namespace numeric { namespace ublas {
+namespace boost::numeric::ublas {
 
 ///** \brief Base class for Tensor container models
 // *
@@ -605,7 +605,7 @@ protected:
     array_type data_;
 };
 
-}}} // namespaces
+} // namespaces
 
 
 namespace boost::numeric::ublas{

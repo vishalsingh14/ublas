@@ -16,7 +16,7 @@
 #include <type_traits>
 #include <boost/numeric/ublas/tensor/detail/basic_type_traits.hpp>
 
-namespace boost::numeric::ublas::span{
+namespace boost::numeric::ublas::experimental {
     
     template<typename T, T...>
     struct basic_slice;
@@ -29,7 +29,7 @@ namespace boost::numeric::ublas::span{
 
 } // namespace boost::numeric::ublas::span
 
-namespace boost::numeric::ublas::span{
+namespace boost::numeric::ublas::experimental {
     
     template<typename T, T... Vs>
     struct is_slice< basic_slice<T, Vs...> > : std::true_type{};
@@ -39,10 +39,10 @@ namespace boost::numeric::ublas::span{
 namespace boost::numeric::ublas{
     
     template<typename T>
-    struct is_dynamic< span::basic_slice<T> > : std::true_type{};
+    struct is_dynamic< experimental::basic_slice<T> > : std::true_type{};
     
     template<typename T, T s, T... Vs>
-    struct is_static< span::basic_slice<T, s, Vs...> > : std::true_type{};
+    struct is_static< experimental::basic_slice<T, s, Vs...> > : std::true_type{};
 
 } // namespace boost::numeric::ublas
 

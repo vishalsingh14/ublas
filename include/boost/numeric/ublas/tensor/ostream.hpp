@@ -132,7 +132,7 @@ std::ostream& operator<<(std::ostream& os, T const& e){
 
 template <class T,
     std::enable_if_t<
-    boost::numeric::ublas::span::is_slice_v<T>
+    boost::numeric::ublas::experimental::is_slice_v<T>
     , int> = 0
 >
 std::ostream& operator<<(std::ostream& os, T const& s){
