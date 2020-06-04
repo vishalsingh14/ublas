@@ -1,4 +1,5 @@
 HEADERS += \
+    $${INCLUDE_DIR}/boost/numeric/ublas/tensor/access.hpp \
     $${INCLUDE_DIR}/boost/numeric/ublas/tensor/algorithms.hpp \
     $${INCLUDE_DIR}/boost/numeric/ublas/tensor/dynamic_extents.hpp \
     $${INCLUDE_DIR}/boost/numeric/ublas/tensor/dynamic_strides.hpp \
