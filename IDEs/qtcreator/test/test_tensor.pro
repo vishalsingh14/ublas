@@ -5,6 +5,8 @@ CONFIG -= qt
 CONFIG += depend_includepath debug
 win*: CONFIG += console
 
+CONFIG += c++17
+
 #QMAKE_CXXFLAGS += -fno-inline
 QMAKE_CXXFLAGS += -std=c++17
 #QMAKE_CXXFLAGS += -Wno-unknown-pragmas
@@ -34,9 +36,10 @@ LIBS +=-lboost_unit_test_framework
 
 TEST_DIR=../../../test/tensor
 
-HEADERS += $${TEST_DIR}/utility.hpp
-
 INCLUDEPATH += ../../../include
+
+HEADERS += \
+  $${TEST_DIR}/utility.hpp
 
 SOURCES += \
   $${TEST_DIR}/test_access.cpp \

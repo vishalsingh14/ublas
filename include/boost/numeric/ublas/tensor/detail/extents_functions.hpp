@@ -250,6 +250,7 @@ constexpr bool is_matrix(ExtentsType const &e) {
           std::all_of(e.begin() + 2, e.end(), equal_one);
 }
 
+
 /** @brief Returns true if this is has a tensor shape
  *
  * @returns true if !empty() && !is_scalar() && !is_vector() && !is_matrix()

@@ -81,9 +81,9 @@ public:
             return;
 
         if( !valid(s) )
-            throw std::runtime_error("Error in boost::numeric::ublas::basic_strides() : shape is not valid.");        
+            throw std::runtime_error("Error in boost::numeric::ublas::basic_strides() : shape is not valid.");
 
-        if( is_vector(s) || is_scalar(s) )
+        if( is_vector(s) || is_scalar(s) ) /* */
             return;
 
         if( this->size() < 2 )
@@ -91,11 +91,13 @@ public:
 
 
         if constexpr (std::is_same<layout_type,first_order>::value){
+            assert(this->size() >= 2u);
             size_type k = 1ul, kend = this->size();
             for(; k < kend; ++k)
                 _base[k] = _base[k-1] * s[k-1];
         }
         else {
+            assert(this->size() >= 2u);
             size_type k = this->size()-2, kend = 0ul;
             for(; k > kend; --k)
                 _base[k] = _base[k+1] * s[k+1];

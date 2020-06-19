@@ -6,6 +6,8 @@ CONFIG += \
     depend_includepath
 CONFIG -= qt
 CONFIG += c++17
+QMAKE_CXXFLAGS += -std=c++17
+
 INCLUDE_DIR=../../../include
 
 include(detail/detail.pri)
