@@ -642,11 +642,11 @@ void ttv(SizeType const m, SizeType const p,
         throw std::length_error("Error in boost::numeric::ublas::ttv: Extent of dimension mode of A and b must be equal.");
 
 
-    if((m != 1) && (p > 2))
+    if((p > 2) && (m != 1) )
         detail::recursive::ttv(m-1, p-1, p-2, c, nc, wc,    a, na, wa,   b);
-    else if ((m == 1) && (p > 2))
+    else if ((p > 2) && (m == 1) )
         detail::recursive::ttv0(p-1, c, nc, wc,  a, na, wa,   b);
-    else if( p == 2 )
+    else if( (p == 2) )
         detail::recursive::mtv(m-1, c, nc, wc,  a, na, wa,   b);
     else /*if( p == 1 )*/{
         auto v = std::remove_pointer_t<std::remove_cv_t<PointerOut>>{};
