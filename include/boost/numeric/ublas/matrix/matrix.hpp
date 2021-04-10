@@ -38,14 +38,14 @@ public:
     matrix(size_t r,size_t c, T x=0) 
         : R(r), C(c) 
     {
-        M.assign(R, std::vector<T>(C,x));
+        data_.assign(R, std::vector<T>(C,x));
     }
 
     // initialize with intializer list
     matrix(std::initializer_list<std::vector<T>> m) 
-        : M(m)
+        : data_(m)
     {
-        R = M.size(), C = R > 0 ? M[0].size() : 0;
+        R = data_.size(), C = R > 0 ? data_[0].size() : 0;
     }
 
     // check empty 
@@ -61,7 +61,7 @@ public:
     // resize the matrix
     void resize(size_t r, size_t c, T x=0) {
         R = r, C = c;
-        M.resize(R,std::vector<T>(C,x));
+        data_.resize(R,std::vector<T>(C,x));
     }
 
     // Add, Subtract, Multiplixation 
@@ -69,7 +69,7 @@ public:
         assert(R == rhs.R && C == rhs.C);
         for(size_t r = 0; r < R; ++r) {
             for(size_t c = 0; c < C; ++c) {
-                M[r][c] += rhs(r,c);
+                data_[r][c] += rhs(r,c);
             }
         }
         return *this;
@@ -78,7 +78,7 @@ public:
         assert(R == rhs.R && C == rhs.C);
         for(size_t r = 0; r < R; ++r) {
             for(size_t c = 0; c < C; ++c) {
-                M[r][c] -= rhs(r,c);
+                data_[r][c] -= rhs(r,c);
             }
         }
         return *this;
@@ -89,7 +89,7 @@ public:
         for (size_t r = 0; r < res.R; ++r) {
             for (size_t c = 0; c<res.C; ++c) {
                 for (size_t i = 0; i < C; ++i) {
-                    res(r, c) += M[r][i] * rhs(i, c);
+                    res(r, c) += data_[r][i] * rhs(i, c);
                 }
             }
         }
@@ -99,7 +99,7 @@ public:
         matrix res = *this;
         for(size_t r = 0; r < R; ++r) {
             for(size_t c = 0; c < C; ++c) {
-                res.M[r][c] /= rhs;
+                res.data_[r][c] /= rhs;
             }
         }
         return res;
@@ -121,7 +121,7 @@ public:
     matrix operator*=(const T &rhs) {
         for(size_t r = 0; r < R; ++r) {
             for(size_t c = 0; c < C; ++c) {
-                M[r][c] *= rhs;
+                data_[r][c] *= rhs;
             }
         }
         return *this;
@@ -141,7 +141,7 @@ public:
         }
         for(size_t i = 0; i < R; ++i) {
             for(size_t j=0; j < C; ++j) {
-                if(ceil(M[i][j]) != ceil(rhs(i,j))) {
+                if(ceil(data_[i][j]) != ceil(rhs(i,j))) {
                     return false;
                 }
             }
@@ -155,11 +155,11 @@ public:
     // access element of matrix
     T operator()(size_t r, size_t c) const {
         assert(r >= 0 && r < R && c >= 0 && c < C);
-        return M[r][c];
+        return data_[r][c];
     }
     T& operator()(size_t r, size_t c) {
         assert(0 <= r && r < R && 0 <= c && c < C);
-        return M[r][c];
+        return data_[r][c];
     }
 
     matrix operator()(const span &row_range, const span &col_range) const {
@@ -167,13 +167,13 @@ public:
         matrix res(row_range.len, col_range.len);
         for(size_t r = 0; r < row_range.len; ++r) {
             for(size_t c = 0; c <  col_range.len; ++c) {
-                res(r,c) = M[row_range.l + r][col_range.l + c];
+                res(r,c) = data_[row_range.l + r][col_range.l + c];
             }
         }
         return res;
     }
     T& operator[](size_t i) {
-        return M[i % R][i / R];
+        return data_[i % R][i / R];
     }
 
     // transpose of matrix
@@ -181,7 +181,7 @@ public:
         matrix res(C,R);
         for(size_t r = 0; r < R; ++r) {
             for(size_t c = 0; c < C; ++c) {
-                res(c,r) = M[r][c];
+                res(c,r) = data_[r][c];
             }
         }
         return res;
@@ -189,14 +189,14 @@ public:
 
     // return rth row of matrix
     matrix row(int r) const {
-        return {M[r]};
+        return {data_[r]};
     }
 
     // return cth column of matrix
     matrix column(int c) const {
         matrix<T> col(R,1);
         for(size_t r = 0; r < R; ++r) {
-            col(r,0) = M[r][c];
+            col(r,0) = data_[r][c];
         }
         return col;
     }    
@@ -225,7 +225,7 @@ public:
 
 private: 
     size_t R, C;
-    std::vector<std::vector<T>> M;
+    std::vector<std::vector<T>> data_;
 };
 
 // zero matrix of size r*c
